@@ -50,7 +50,8 @@ object MovieRatingsApp {
 
       movieRatingRdd.saveAsTextFile(output_path + "/movie_ratings")
     } else if (format.toLowerCase == "parquet") {
-      import sqlContext.implicits._
+      val sqlCtx = new SQLContext(sc)
+      import sqlCtx.implicits._
 
       val sqlContext = new SQLContext(sc)
       val newMoviesRDD = movieFilteredRdd.map(MovieCreator.lineToMovie(_)).toDF()
